@@ -41,3 +41,14 @@ def generate_H_matrix(n, k, p, q):
             for subedge in itertools.permutations(edge):
                 H[subedge] = 1
     return H
+
+
+def generate_cluster_ring_hypergraph(k, n, r):
+    edges = []
+    for i in range(k):
+        for edge in itertools.combinations(range(i*n, i*n + n), r): 
+            edges.append(edge)
+        edge = [t for t in range(i*n - r + n + 1, i*n + n)] + [ (i * n + n) % (k * n) ]
+        edges.append(edge)
+
+    return np.array(edges)
